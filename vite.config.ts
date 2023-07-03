@@ -1,5 +1,5 @@
 import solid from "solid-start/vite";
-import netlify from "solid-start-netlify";
+import netlify from "solid-start-vercel";
 import { defineConfig } from "vite";
 
 export default defineConfig({
