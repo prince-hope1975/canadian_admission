@@ -1,3 +1,5 @@
+import { Motion } from "@motionone/solid";
+import { FlowProps } from "solid-js";
 import { A } from "solid-start";
 
 export default function Home() {
@@ -5,7 +7,7 @@ export default function Home() {
     <>
       <main class="text- mx-auto text-gray-700 p-4 bg-[#14b8a6] relative overflow-hidden ">
         <Background class="absolute inset-0 md:right-0 md:bottom-0 md:left-[10%] md:top-0" />
-        <section class="pb-8 md:pb-32 px-5 z-50  overflow-hidden relative text-white">
+        <section class="pb-8  px-5 z-50  overflow-hidden relative text-white">
           <nav class="flex text-white py-8 max-w-7xl mx-auto  flex-col sm:flex-row w-full justify-between ">
             <div class="flex gap-2 items-center">
               <A href="/" class="font-semibold text-2xl">
@@ -25,68 +27,56 @@ export default function Home() {
               </li>
             </ul>
           </nav>
-          <h1 class="text-4xl sm:text-6xl lg:text-6xl max-w-5xl font-custom font-[Poppins,sans-serif] font-bold mt-[6rem]">
+          <Motion.h1
+            initial={{
+              opacity: 0,
+              x: -200,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            class="text-4xl sm:text-6xl lg:text-6xl max-w-5xl font-custom font-[Poppins,sans-serif] font-bold mt-[6rem]"
+          >
             Gain Admission to the Top Universities Saskatchewan Can Offer Hello
             world!
-          </h1>
-          <p class="sm:leading-relaxed max-w-2xl text-2xl mt-8">
-            Are you an international student dreaming of pursuing higher
-            education in Saskatchewan, Canada? At SKtudy, we are dedicated to
-            simplifying your journey and ensuring a seamless registration and
-            admission process into prestigious universities across Saskatchewan.
-          </p>
+          </Motion.h1>
+          <div class="overflow-hidden ">
+            <Motion.p
+              animate={{
+                y: 0,
+                opacity: [0, 0, 0, 1],
+              }}
+              initial={{
+                y: 300,
+                opacity: 0,
+              }}
+              transition={{
+                delay: 0.5,
+                duration: 1,
+              }}
+              class="sm:leading-relaxed max-w-2xl text-2xl mt-8"
+            >
+              Are you an international student dreaming of pursuing higher
+              education in Saskatchewan, Canada? At SKtudy, we are dedicated to
+              simplifying your journey and ensuring a seamless registration and
+              admission process into prestigious universities across
+              Saskatchewan.
+            </Motion.p>
+          </div>
         </section>
-        <section class="relative">
-          <h2 class="mb-3 text-2xl sm:text-2xl font-custom font-bold max-w-4xl md:leading-tight">
+        <section class="relative sm:max-w-[512px] px-5 md:pb-32">
+          <h2 class=" text-white mb-3 text-2xl sm:text-2xl font-custom font-bold max-w-4xl md:leading-tight">
             Get a Free Consultation Now
           </h2>
           <div class="">
-            <form
-              class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-2 max-w-2xl gap-x-2 items-center flex-wrap"
-              action="/subscribe"
-              accept-charset="UTF-8"
-              method="post"
-            >
-              <input
-                type="hidden"
-                name="authenticity_token"
-                value="XqVopxse9eP23GqA-ha-w_nrAmKRIiDFRWap5M_gct5ZBWd5CHj9noVUATggVVpDzgHYT5h1CYutJ5oTpruTkQ"
-                autocomplete="off"
-              />
-              <input
-                type="hidden"
-                name="iframe_id"
-                id="iframe_id"
-                value="myadmissions"
-                autocomplete="off"
-              />
-              <label class="sr-only" for="email">
-                Email address
-              </label>
-              <input
-                autocomplete="email"
-                required
-                class="flex-auto rounded-lg border-0 bg-white px-6 py-3.5 shadow-sm ring-1 ring-black/10 focus:ring-2 w-full focus:ring-black/10 text-slate-900 text-base sm:text-xl sm:leading-6"
-                placeholder="Enter your email."
-                type="email"
-                name="email"
-                id="email"
-              />
-              <input
-                type="submit"
-                name="commit"
-                value="Count Me In."
-                class="rounded-lg py-4 whitespace-nowrap px-6 sm:px-12 text-base font-bold sm:text-xl text-white shadow-sm hover:opacity-90 transition focus-visible:outline focus-visible:outline-2 w-full focus-visible:outline-offset-2 focus-visible:outline-white"
-                style="background-color: #0f8a7c"
-                data-disable-with="Count Me In."
-              />
-            </form>
+            <EmailForm />
           </div>
         </section>
       </main>
       <SectionTwo />
       <FAQ />
-      <SectionThree />
+      {/* <SectionThree /> */}
       <SectionFour />
     </>
   );
@@ -157,20 +147,33 @@ const SectionTwo = () => {
 
       <div class="max-w-7xl mx-auto">
         <div x-on:click="toggle('features')">
-          <div class="mb-20 text-center">
+          <Motion.div
+            initial={{
+              y: 50,
+              opacity: 0,
+            }}
+            inView={{
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.6,
+              },
+            }}
+            class="mb-20 text-center"
+          >
             <h2 class="text-4xl md:text-6xl max-w-2xl mx-auto font-custom font-bold md:leading-tight">
               Key Features
             </h2>
             <p class="sm:leading-relaxed text-2xl max-w-2xl mx-auto">
               Why Choose Sktudy?
             </p>
-          </div>
+          </Motion.div>
           <div class="relative isolate">
             <div
               class="flex relative isolate bg-slate-100/60 backdrop-blur-2xl rounded-xl p-10 md:p-16 z-50 flex-wrap gap-x-20 gap-y-24"
               style="background: rgba(20, 129, 184, 0.08)"
             >
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              <LeftAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -187,8 +190,8 @@ const SectionTwo = () => {
                   personalized advice, ensuring you make informed decisions
                   about your university and program choices.
                 </p>
-              </div>
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              </LeftAnimation>
+              <RightAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -206,8 +209,8 @@ const SectionTwo = () => {
                   on time, saving you from unnecessary stress and ensuring a
                   smooth application experience.
                 </p>
-              </div>
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              </RightAnimation>
+              <LeftAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -224,8 +227,8 @@ const SectionTwo = () => {
                   increasing your chances of securing admission to your
                   preferred university.
                 </p>
-              </div>
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              </LeftAnimation>
+              <RightAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -240,8 +243,8 @@ const SectionTwo = () => {
                   documents, protecting the privacy and confidentiality of our
                   clients.
                 </p>
-              </div>
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              </RightAnimation>
+              <LeftAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -259,8 +262,8 @@ const SectionTwo = () => {
                   SKtudy, you can rely on us to provide holistic support
                   throughout your educational journey.
                 </p>
-              </div>
-              <div class="lg:flex-[1_1_30%] mx-auto">
+              </LeftAnimation>
+              <RightAnimation class="">
                 <span
                   class="font-bold text-xl mb-2 block"
                   style="color: #14b8a6"
@@ -275,7 +278,7 @@ const SectionTwo = () => {
                   universities, ensuring a smooth flow of information and
                   updates.
                 </p>
-              </div>
+              </RightAnimation>
             </div>
           </div>
         </div>
@@ -332,46 +335,7 @@ const SectionFour = () => {
                   Get a Free Consultation Now
                 </h2>
                 <div class="">
-                  <form
-                    class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-2 max-w-2xl gap-x-2 items-center flex-wrap"
-                    action="/subscribe"
-                    accept-charset="UTF-8"
-                    method="post"
-                  >
-                    <input
-                      type="hidden"
-                      name="authenticity_token"
-                      value="kSsR9eyCqtmIglCT3s-TStt9DAFOrTctEsUpqLsLgqaWix4r_-SipPsKOysEjHfK7JfWLEf6HmP6hBpf0lBj6Q"
-                      autocomplete="off"
-                    />
-                    <input
-                      type="hidden"
-                      name="iframe_id"
-                      id="iframe_id"
-                      value="myadmissions"
-                      autocomplete="off"
-                    />
-                    <label class="sr-only" for="email">
-                      Email address
-                    </label>
-                    <input
-                      autocomplete="email"
-                      required
-                      class="flex-auto rounded-lg border-0 bg-white px-6 py-3.5 shadow-sm ring-1 ring-black/10 focus:ring-2 w-full focus:ring-black/10 text-slate-900 text-base sm:text-xl sm:leading-6"
-                      placeholder="Enter your email."
-                      type="email"
-                      name="email"
-                      id="email"
-                    />
-                    <input
-                      type="submit"
-                      name="commit"
-                      value="Count Me In."
-                      class="rounded-lg py-4 whitespace-nowrap px-6 sm:px-12 text-base font-bold sm:text-xl text-white shadow-sm hover:opacity-90 transition focus-visible:outline focus-visible:outline-2 w-full focus-visible:outline-offset-2 focus-visible:outline-white"
-                      style="background-color: #0f8a7c"
-                      data-disable-with="Count Me In."
-                    />
-                  </form>
+                  <EmailForm />
                 </div>
               </section>
             </div>
@@ -394,7 +358,7 @@ const SectionFour = () => {
 };
 const FAQ = () => {
   return (
-    <section id="faq" class="pb-8 px-5 py-20 sm:py-32">
+    <section id="faq" class="pb-8 px-5 py-20 sm:py-32 ">
       <div class="grid lg:grid-cols-3 gap-6 sm:gap-10 max-w-7xl mx-auto">
         <div>
           <h2 class="text-3xl sticky top-6 sm:text-5xl md:leading-tight sm:mb-4 font-bold">
@@ -402,7 +366,7 @@ const FAQ = () => {
           </h2>
         </div>
         <div class="lg:col-span-2 flex flex-col gap-8 mx-auto">
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               What documents are required for university admissions?
             </h3>
@@ -411,8 +375,8 @@ const FAQ = () => {
               references, and any additional requirements specified by the
               university.
             </p>
-          </div>
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          </FAQAnimation>
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               How long does the admission process take?
             </h3>
@@ -421,8 +385,8 @@ const FAQ = () => {
               and programs. We prioritize prompt application submission to
               expedite the process.
             </p>
-          </div>
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          </FAQAnimation>
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               Is there any guarantee of admission?
             </h3>
@@ -431,8 +395,8 @@ const FAQ = () => {
               made by the universities themselves. However, we provide expert
               guidance to increase your chances.
             </p>
-          </div>
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          </FAQAnimation>
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               What if I need to update my application?
             </h3>
@@ -441,8 +405,8 @@ const FAQ = () => {
               promptly revise and submit the updated application to the
               universities as per their requirements.
             </p>
-          </div>
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          </FAQAnimation>
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               How secure is my personal information?
             </h3>
@@ -451,8 +415,8 @@ const FAQ = () => {
               information. Your data is handled with utmost confidentiality and
               stored securely.
             </p>
-          </div>
-          <div class="bg-slate-50 rounded-xl p-6 sm:p-10">
+          </FAQAnimation>
+          <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               Do you offer refunds?
             </h3>
@@ -461,9 +425,108 @@ const FAQ = () => {
               refund eligibility will be clearly stated in our terms and
               conditions.
             </p>
-          </div>
+          </FAQAnimation>
         </div>
       </div>
     </section>
+  );
+};
+
+const EmailForm = () => {
+  return (
+    <form
+      class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-2 max-w-2xl gap-x-2 items-center flex-wrap"
+      action="/subscribe"
+      accept-charset="UTF-8"
+      method="post"
+    >
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="kSsR9eyCqtmIglCT3s-TStt9DAFOrTctEsUpqLsLgqaWix4r_-SipPsKOysEjHfK7JfWLEf6HmP6hBpf0lBj6Q"
+        autocomplete="off"
+      />
+      <input
+        type="hidden"
+        name="iframe_id"
+        id="iframe_id"
+        value="myadmissions"
+        autocomplete="off"
+      />
+      <label class="sr-only" for="email">
+        Email address
+      </label>
+      <input
+        autocomplete="email"
+        required
+        class="flex-auto rounded-lg border-0 bg-white px-6 py-3.5 shadow-sm ring-1 ring-black/10 focus:ring-2 w-full focus:ring-black/10 text-slate-900 text-base sm:text-xl sm:leading-6"
+        placeholder="Enter your email."
+        type="email"
+        name="email"
+        id="email"
+      />
+      <input
+        type="submit"
+        name="commit"
+        value="Count Me In."
+        class="rounded-lg py-4 whitespace-nowrap px-6 sm:px-12 text-base font-bold sm:text-xl text-white shadow-sm hover:opacity-90 transition focus-visible:outline focus-visible:outline-2 w-full focus-visible:outline-offset-2 focus-visible:outline-white cursor-pointer"
+        style="background-color: #0f8a7c"
+        data-disable-with="Count Me In."
+      />
+    </form>
+  );
+};
+
+const FAQAnimation = (props: FlowProps<{ class: string }>) => {
+  return (
+    <Motion.div
+      initial={{ opacity: 0, x: 200 }}
+      inView={{
+        opacity: 1,
+
+        x: 0,
+        transition: {
+          duration: 1,
+        },
+      }}
+      class={`bg-slate-50 rounded-xl p-6 sm:p-10 ${props.class}`}
+    >
+      {props.children}
+    </Motion.div>
+  );
+};
+const LeftAnimation = (props: FlowProps<{ class: string }>) => {
+  return (
+    <Motion.div
+      initial={{ opacity: 0, x: -100 }}
+      inView={{
+        opacity: 1,
+        x: 0,
+        transition: {
+          duration: 0.5,
+        },
+      }}
+      class={`lg:flex-[1_1_30%] mx-auto ${props.class}`}
+    >
+      {props.children}
+    </Motion.div>
+  );
+};
+const RightAnimation = (props: FlowProps<{ class: string }>) => {
+  return (
+    <Motion.div
+      initial={{ opacity: 0, x: 100 }}
+      inView={{
+        opacity: 1,
+        x: 0,
+        transition: {
+          duration: 0.5,
+          delay: 0.4,
+        },
+      }}
+      class={`lg:flex-[1_1_30%] mx-auto ${props.class}`}
+    >
+      {props.children}
+    </Motion.div>
   );
 };
