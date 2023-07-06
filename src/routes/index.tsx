@@ -38,8 +38,9 @@ export default function Home() {
             }}
             class="text-4xl sm:text-6xl lg:text-6xl max-w-5xl font-custom font-[Poppins,sans-serif] font-bold mt-[6rem]"
           >
-            Gain Admission to the Top Universities Saskatchewan Can Offer Hello
-            world!
+            Gain Admission to the Top Universities Saskatchewan Can 
+            Offer !
+             {/* Hello            world! */}
           </Motion.h1>
           <div class="overflow-hidden ">
             <Motion.p
