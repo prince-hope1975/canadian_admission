@@ -1,32 +1,112 @@
-import { Motion } from "@motionone/solid";
-import { FlowProps } from "solid-js";
+import { Motion, Presence } from "@motionone/solid";
+import { FlowProps, Show, createEffect, createSignal, onMount } from "solid-js";
 import { A } from "solid-start";
 
+export const [open, setOpen] = createSignal(false);
+export const Nav = () => {
+  return (
+    <nav class="flex text-white py-8 max-w-7xl mx-auto  flex-col sm:flex-row w-full justify-between z-50 relative">
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        class="flex gap-2 items-center"
+      >
+        <A href="/" class="font-semibold text-2xl">
+          Sktudy
+        </A>
+      </div>{" "}
+      <ul class="flex text-base font-medium gap-8">
+        <li class="relative">
+          <A class="hover:opacity-80" href="/#features">
+            Features
+          </A>
+        </li>
+        <li class="relative" >
+          <A class="hover:opacity-80" href="/#faq">
+            Faq
+          </A>
+        </li>
+        <li>
+          <div class="relative isolate">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const _open = open();
+                setOpen(!_open);
+              }}
+              class="hover:opacity-80 "
+            >
+              {" "}
+              Universities
+            </button>
+            <Presence>
+              <Show when={open()}>
+                <Motion.ul
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  initial={{
+                    opacity: 0,
+                    y: 10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  class="absolute text-center bg-gray-900 rounded  top-[120%]"
+                >
+                  <li
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpen(false);
+                    }}
+                    class="hover:bg-gray-700    rounded flex "
+                  >
+                    <A class="px-6 py-2" href="/universities/Saskpoly">Saskpoly</A>
+                  </li>
+                  <li
+                  
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpen(false);
+                    }}
+                    class="hover:bg-gray-700    rounded flex "
+                  >
+                    <A class="px-6 py-2" href="/universities/UOFR">UOFR</A>
+                  </li>
+                  <li
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpen(false);
+                    }}
+                    class="hover:bg-gray-700    rounded flex "
+                  >
+                    <A class="px-6 py-2" href="/universities/UOFS">UOFS</A>
+                  </li>
+                </Motion.ul>
+              </Show>
+            </Presence>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 export default function Home() {
   return (
     <>
-      <main class="text- mx-auto text-gray-700 p-4 bg-[#14b8a6] relative overflow-hidden ">
+      <main
+        class="text- mx-aut text-gray-700 p-4 bg-primary relative overflow-hidden max-w-[100vw] "
+        onClick={() => setOpen(false)}
+      >
         <Background class="absolute inset-0 md:right-0 md:bottom-0 md:left-[10%] md:top-0" />
         <section class="pb-8  px-5 z-50  overflow-hidden relative text-white">
-          <nav class="flex text-white py-8 max-w-7xl mx-auto  flex-col sm:flex-row w-full justify-between ">
-            <div class="flex gap-2 items-center">
-              <A href="/" class="font-semibold text-2xl">
-                Sktudy
-              </A>
-            </div>{" "}
-            <ul class="flex text-base font-medium gap-8">
-              <li>
-                <A class="hover:opacity-80" href="#features">
-                  Features
-                </A>
-              </li>
-              <li>
-                <A class="hover:opacity-80" href="#faq">
-                  Faq
-                </A>
-              </li>
-            </ul>
-          </nav>
+          <Nav />
           <Motion.h1
             initial={{
               opacity: 0,
@@ -38,9 +118,8 @@ export default function Home() {
             }}
             class="text-4xl sm:text-6xl lg:text-6xl max-w-5xl font-custom font-[Poppins,sans-serif] font-bold mt-[6rem]"
           >
-            Gain Admission to the Top Universities Saskatchewan Can 
-            Offer !
-             {/* Hello            world! */}
+            Gain Admission to the Top Universities Saskatchewan Can Offer !
+            {/* Hello            world! */}
           </Motion.h1>
           <div class="overflow-hidden ">
             <Motion.p
@@ -83,7 +162,7 @@ export default function Home() {
   );
 }
 
-const Background = (props: { class: string }) => {
+export const Background = (props: { class: string }) => {
   return (
     <div class={` ${props.class}`}>
       <div
@@ -313,7 +392,6 @@ const SectionThree = () => {
         checkout link to popular digital stores like LemonSqueezy, Gumroad,
         Stripe, and more.
       </p>
-      {/* Pricing section */}
     </div>
   );
 };
@@ -321,10 +399,10 @@ const SectionThree = () => {
 const SectionFour = () => {
   return (
     <div
-      class="w-full mx-auto mt-12 sm:mt-32"
+      class="w-full mx-auto mt-12 sm:mt-32 "
       style="background: rgba(20, 129, 184, 0.08)"
     >
-      <div x-on:click="toggle('cta')">
+      <div >
         <section class="py-16 px-5 relative overflow-hidden sm:pt-32">
           <div class="mx-auto items-center flex flex-col gap-2 sm:gap-4 max-w-4xl">
             <h2 class="text-3xl sm:text-5xl md:leading-tight text-center font-bold">
@@ -332,7 +410,7 @@ const SectionFour = () => {
             </h2>
             <div class="mb-16 mt-8 text-center">
               <section class="relative">
-                <h2 class="mb-3 text-2xl sm:text-2xl font-custom font-bold max-w-4xl md:leading-tight">
+                <h2 class="mb-3 text-xl sm:text-2xl font-custom font-bold max-w-4xl md:leading-tight">
                   Get a Free Consultation Now
                 </h2>
                 <div class="">
@@ -359,14 +437,14 @@ const SectionFour = () => {
 };
 const FAQ = () => {
   return (
-    <section id="faq" class="pb-8 px-5 py-20 sm:py-32 ">
+    <section id="faq" class="pb-8 px-5 py-20 sm:py-32 max-w-[100vw]">
       <div class="grid lg:grid-cols-3 gap-6 sm:gap-10 max-w-7xl mx-auto">
         <div>
           <h2 class="text-3xl sticky top-6 sm:text-5xl md:leading-tight sm:mb-4 font-bold">
             Frequently Asked Questions
           </h2>
         </div>
-        <div class="lg:col-span-2 flex flex-col gap-8 mx-auto">
+        <div class="lg:col-span-2 flex flex-col gap-8 mx-auto max-w-[100vw] overflow-hidden">
           <FAQAnimation class="bg-slate-50 rounded-xl p-6 sm:p-10">
             <h3 class="ext-2xl sm:text-3xl sm:mb-2 font-semibold">
               What documents are required for university admissions?
@@ -433,7 +511,7 @@ const FAQ = () => {
   );
 };
 
-const EmailForm = () => {
+export const EmailForm = () => {
   return (
     <form
       class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-2 max-w-2xl gap-x-2 items-center flex-wrap"
